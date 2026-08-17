@@ -159,8 +159,34 @@
     </form>
 
 </section>
+<% if (error) { %>
 
+    <div class="empty-state">
 
+        <div class="empty-icon">
+            👽
+        </div>
+
+        <h2>
+            No Characters Found
+        </h2>
+
+        <p>
+            Try another name or change your filters.
+        </p>
+
+        <a
+            href="/characters"
+            class="clear-button"
+        >
+            Clear Filters
+        </a>
+
+    </div>
+
+<% } %>
+
+<% if (characters.length > 0) { %>
     <section class="characters-container">
 
         <div class="characters-grid">
@@ -329,7 +355,9 @@
 
 <% } %>
 
+
     </section>
+<% } %>
 
 </main>
 

@@ -1,0 +1,45 @@
+<%- include("../partials/head", {
+    title: "Character Not Found"
+}) %>
+
+<%- include("../partials/navbar", {
+    activePage: "characters"
+}) %>
+
+
+<main class="not-found-page">
+
+    <div class="not-found-card">
+
+        <div class="not-found-icon">
+            👽
+        </div>
+
+        <span class="not-found-label">
+            CHARACTER NOT FOUND
+        </span>
+
+        <h1>
+            Oops... Wrong Dimension!
+        </h1>
+
+        <p>
+            The character you're looking for doesn't exist
+            in this dimension.
+        </p>
+
+        <a
+            href="/characters"
+            class="back-button not-found-button"
+        >
+            <span>←</span>
+            Back to Characters
+        </a>
+
+    </div>
+
+</main>
+
+
+<div class="portal-decoration portal-one"></div>
+<div class="portal-decoration portal-two"></div>
