@@ -1,36 +1,27 @@
 <nav class="navbar-custom">
-  <div class="navbar-container">
-    <a href="/characters" class="brand">
-      <span class="brand-rick"> Rick </span>
+    <div class="navbar-container">
+        <a href="/characters" class="brand">
+            <span class="brand-rick"> Rick </span>
 
-      <span class="brand-and"> & </span>
+            <span class="brand-and"> & </span>
 
-      <span class="brand-morty"> Morty </span>
-    </a>
+            <span class="brand-morty"> Morty </span>
+        </a>
 
-    <div class="nav-links">
-      <a
-        href="/characters"
-        class="nav-link <%= activePage === 'characters' ? 'active' : '' %>"
-      >
-        Characters
-      </a>
+        <div class="nav-links">
+            <a href="/characters" class="nav-link <%= activePage === 'characters' ? 'active' : '' %>">
+                Characters
+            </a>
 
-      <a
-        href="/locations"
-        class="nav-link <%= activePage === 'locations' ? 'active' : '' %>"
-      >
-        Locations
-      </a>
+            <a href="/locations" class="nav-link <%= activePage === 'locations' ? 'active' : '' %>">
+                Locations
+            </a>
 
-      <a
-        href="#"
-        class="nav-link <%= activePage === 'episodes' ? 'active' : '' %>"
-      >
-        Episodes
-      </a>
+            <a href="/episodes" class="nav-link <%= activePage === 'episodes' ? 'active' : '' %>">
+                Episodes
+            </a>
 
-      <a href="#" class="nav-link"> About </a>
+            <a href="#" class="nav-link"> About </a>
+        </div>
     </div>
-  </div>
 </nav>

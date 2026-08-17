@@ -1,6 +1,7 @@
 import {
     getCharacters,
-    getCharacterById
+    getCharacterById,
+    getEpisodesByUrls
 } from "../services/apiService.js";
 
 import { getIdFromUrl } from "../utils/url.util.js";
@@ -51,13 +52,42 @@ const showCharacterDetails = async (req, res) => {
             character.location.url
         );
 
+
+        let episodes = [];
+
+        if (character.episode.length > 0) {
+
+            try {
+
+                episodes = await getEpisodesByUrls(
+                    character.episode.slice(0, 6)
+                );
+
+            } catch (error) {
+
+                console.log(
+                    "Failed to load character episodes:",
+                    error.message
+                );
+
+            }
+
+        }
+
+
         res.render("pages/character-details", {
             character,
             originId,
-            locationId
+            locationId,
+            episodes
         });
 
     } catch (error) {
+
+        console.log(
+            "Failed to load character:",
+            error.message
+        );
 
         res.status(404).render(
             "pages/character-not-found"

@@ -1,0 +1,311 @@
+<%- include("../partials/head", {
+    title: "Rick & Morty | Episodes"
+}) %>
+
+<%- include("../partials/navbar", {
+    activePage: "episodes"
+}) %>
+
+
+<main class="main-content">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero-section">
+
+        <h1>
+            Rick & Morty
+            <span>Episodes</span>
+        </h1>
+
+        <div class="title-decoration">
+
+            <span></span>
+
+            <div class="portal">
+                ✦
+            </div>
+
+            <span></span>
+
+        </div>
+
+        <p>
+            Explore every chaotic adventure across the multiverse.
+        </p>
+
+    </section>
+
+
+    <!-- ================= FILTERS ================= -->
+
+    <section class="filters-section">
+
+        <form
+            action="/episodes"
+            method="GET"
+            class="filters-form"
+        >
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    name="name"
+                    value="<%= filters?.name || '' %>"
+                    placeholder="Search episode..."
+                >
+
+            </div>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    name="episode"
+                    value="<%= filters?.episode || '' %>"
+                    placeholder="e.g. S01E01"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="filter-button"
+            >
+                Search
+            </button>
+
+
+            <a
+                href="/episodes"
+                class="clear-button"
+            >
+                Clear
+            </a>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= NO RESULTS ================= -->
+
+    <% if (error) { %>
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                🎬
+            </div>
+
+            <h2>
+                No Episodes Found
+            </h2>
+
+            <p>
+                Try another episode name or code.
+            </p>
+
+            <a
+                href="/episodes"
+                class="clear-button"
+            >
+                Clear Filters
+            </a>
+
+        </div>
+
+    <% } %>
+
+
+    <!-- ================= EPISODES ================= -->
+
+    <% if (episodes.length > 0) { %>
+
+        <section class="episodes-container">
+
+            <div class="episodes-grid">
+
+                <% episodes.forEach(episode => { %>
+
+                    <a
+                        href="/episodes/<%= episode.id %>"
+                        class="episode-card"
+                    >
+
+                        <div class="episode-card-top">
+
+                            <div class="episode-icon">
+                                ▶
+                            </div>
+
+                            <span class="episode-code">
+                                <%= episode.episode %>
+                            </span>
+
+                        </div>
+
+
+                        <div class="episode-card-content">
+
+                            <h2>
+                                <%= episode.name %>
+                            </h2>
+
+                            <div class="episode-meta">
+
+                                <div class="episode-meta-item">
+
+                                    <span>
+                                        📅
+                                    </span>
+
+                                    <span>
+                                        <%= episode.air_date %>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="episode-meta-item">
+
+                                    <span>
+                                        👽
+                                    </span>
+
+                                    <span>
+                                        <%= episode.characters.length %>
+                                        Characters
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="episode-card-footer">
+
+                            <span>
+                                View Episode
+                            </span>
+
+                            <span>
+                                →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                <% }) %>
+
+            </div>
+
+
+            <!-- ================= PAGINATION ================= -->
+
+            <% if (info) { %>
+
+                <div class="pagination-container">
+
+                    <% if (info.prev) { %>
+
+                        <a
+                            href="/episodes?<%= new URL(info.prev).searchParams.toString() %>"
+                            class="pagination-button"
+                        >
+                            ← Previous
+                        </a>
+
+                    <% } %>
+
+
+                    <div class="pagination-pages">
+
+                        <%
+                            const currentPage =
+                                Number(filters.page) || 1;
+
+                            const totalPages =
+                                info.pages;
+
+                            const startPage =
+                                Math.max(
+                                    1,
+                                    currentPage - 2
+                                );
+
+                            const endPage =
+                                Math.min(
+                                    totalPages,
+                                    currentPage + 2
+                                );
+                        %>
+
+
+                        <% for (
+                            let page = startPage;
+                            page <= endPage;
+                            page++
+                        ) { %>
+
+                            <%
+                                const pageParams =
+                                    new URLSearchParams(filters);
+
+                                pageParams.set(
+                                    "page",
+                                    page
+                                );
+                            %>
+
+
+                            <a
+                                href="/episodes?<%= pageParams.toString() %>"
+                                class="pagination-page <%= page === currentPage ? 'active' : '' %>"
+                            >
+                                <%= page %>
+                            </a>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <% if (info.next) { %>
+
+                        <a
+                            href="/episodes?<%= new URL(info.next).searchParams.toString() %>"
+                            class="pagination-button"
+                        >
+                            Next →
+                        </a>
+
+                    <% } %>
+
+                </div>
+
+            <% } %>
+
+        </section>
+
+    <% } %>
+
+</main>
+
+
+<div class="portal-decoration portal-one"></div>
+
+<div class="portal-decoration portal-two"></div>
+
+<div class="space-rock rock-one"></div>
+
+<div class="space-rock rock-two"></div>
+
+
+<%- include("../partials/footer") %>

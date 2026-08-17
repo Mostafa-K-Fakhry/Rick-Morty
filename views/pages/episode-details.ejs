@@ -1,0 +1,256 @@
+<%- include("../partials/head", {
+    title: `${episode.name} | Rick & Morty`
+}) %>
+
+
+<%- include("../partials/navbar", {
+    activePage: "episodes"
+}) %>
+
+
+<main class="episode-details-page">
+
+    <div class="episode-details-container">
+
+
+        <!-- Back -->
+
+        <a
+            href="/episodes"
+            class="back-button"
+        >
+            <span>←</span>
+            Back to Episodes
+        </a>
+
+
+        <!-- Main Card -->
+
+        <section class="episode-details-card">
+
+
+            <!-- Visual -->
+
+            <div class="episode-details-visual">
+
+                <div class="episode-big-icon">
+                    ▶
+                </div>
+
+                <div class="episode-code-large">
+                    <%= episode.episode %>
+                </div>
+
+                <div class="episode-visual-label">
+                    EPISODE
+                </div>
+
+            </div>
+
+
+            <!-- Content -->
+
+            <div class="episode-details-content">
+
+                <span class="details-label">
+                    EPISODE PROFILE
+                </span>
+
+
+                <div class="episode-details-heading">
+
+                    <h1>
+                        <%= episode.name %>
+                    </h1>
+
+                    <span class="episode-details-id">
+                        #<%= episode.id %>
+                    </span>
+
+                </div>
+
+
+                <p class="episode-details-description">
+                    Explore this adventure from the Rick & Morty
+                    universe and discover when it aired and which
+                    characters appeared in it.
+                </p>
+
+
+                <!-- Information -->
+
+                <div class="episode-info-grid">
+
+
+                    <div class="episode-info-box">
+
+                        <span class="episode-info-icon">
+                            🎬
+                        </span>
+
+                        <div>
+
+                            <span class="episode-info-label">
+                                Episode
+                            </span>
+
+                            <span class="episode-info-value">
+                                <%= episode.episode %>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="episode-info-box">
+
+                        <span class="episode-info-icon">
+                            📅
+                        </span>
+
+                        <div>
+
+                            <span class="episode-info-label">
+                                Air Date
+                            </span>
+
+                            <span class="episode-info-value">
+                                <%= episode.air_date %>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="episode-info-box">
+
+                        <span class="episode-info-icon">
+                            👽
+                        </span>
+
+                        <div>
+
+                            <span class="episode-info-label">
+                                Characters
+                            </span>
+
+                            <span class="episode-info-value">
+                                <%= episode.characters.length %>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="episode-info-box">
+
+                        <span class="episode-info-icon">
+                            🆔
+                        </span>
+
+                        <div>
+
+                            <span class="episode-info-label">
+                                Episode ID
+                            </span>
+
+                            <span class="episode-info-value">
+                                #<%= episode.id %>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Characters -->
+
+                <div class="episode-characters-section">
+
+                    <div class="episode-characters-heading">
+
+                        <h2>
+                            Characters
+                        </h2>
+
+                        <span>
+                            <%= episode.characters.length %>
+                            appearances
+                        </span>
+
+                    </div>
+
+
+                    <div class="episode-characters-grid">
+
+                        <% if (characters.length > 0) { %>
+
+                            <% characters.forEach(character => { %>
+
+                                <a
+                                    href="/characters/<%= character.id %>"
+                                    class="episode-character-card"
+                                >
+
+                                    <img
+                                        src="<%= character.image %>"
+                                        alt="<%= character.name %>"
+                                    >
+
+
+                                    <div>
+
+                                        <h3>
+                                            <%= character.name %>
+                                        </h3>
+
+
+                                        <div class="episode-character-status">
+
+                                            <span
+                                                class="status-dot <%= character.status.toLowerCase() %>"
+                                            ></span>
+
+                                            <%= character.status %>
+
+                                        </div>
+
+                                    </div>
+
+                                </a>
+
+                            <% }) %>
+
+                        <% } else { %>
+
+                            <div class="no-episode-characters">
+                                No character data available.
+                            </div>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<div class="portal-decoration portal-one"></div>
+
+<div class="portal-decoration portal-two"></div>
+
+
+<%- include("../partials/footer") %>

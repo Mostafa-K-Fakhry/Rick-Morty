@@ -65,10 +65,55 @@ const getCharactersByUrls = async (urls) => {
         : [response.data];
 };
 
+const getEpisodes = async (filters = {}) => {
+
+    const response = await axios.get(
+        `${API_URL}/episode`,
+        {
+            params: filters
+        }
+    );
+
+    return response.data;
+};
+
+const getEpisodeById = async (id) => {
+
+    const response = await axios.get(
+        `${API_URL}/episode/${id}`
+    );
+
+    return response.data;
+};
+
+const getEpisodesByUrls = async (urls) => {
+
+    if (!urls || urls.length === 0) {
+        return [];
+    }
+
+    const ids = urls.map((url) =>
+        url.split("/").pop()
+    );
+
+    const response = await axios.get(
+        `${API_URL}/episode/${ids.join(",")}`
+    );
+
+    return Array.isArray(response.data)
+        ? response.data
+        : [response.data];
+};
+
+
+
 export {
     getCharacters,
     getCharacterById,
     getLocations,
     getLocationById,
-    getCharactersByUrls
+    getCharactersByUrls,
+    getEpisodes,
+    getEpisodeById,
+    getEpisodesByUrls
 };
