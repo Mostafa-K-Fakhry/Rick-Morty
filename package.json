@@ -1,13 +1,20 @@
 {
-  "name": "capstone-project",
+  "name": "rick-morty-explorer",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Rick & Morty Explorer built with Node.js, Express, EJS and Axios",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nodejs",
+    "express",
+    "ejs",
+    "axios",
+    "rick-and-morty-api"
+  ],
+  "author": "Mostafa Khaled",
   "license": "ISC",
   "type": "module",
   "dependencies": {
