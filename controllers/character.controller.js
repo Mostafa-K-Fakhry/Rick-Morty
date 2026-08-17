@@ -3,6 +3,8 @@ import {
     getCharacterById
 } from "../services/apiService.js";
 
+import { getIdFromUrl } from "../utils/url.util.js";
+
 
 const showCharacters = async (req, res) => {
 
@@ -41,13 +43,25 @@ const showCharacterDetails = async (req, res) => {
 
         const character = await getCharacterById(id);
 
+        const originId = getIdFromUrl(
+            character.origin.url
+        );
+
+        const locationId = getIdFromUrl(
+            character.location.url
+        );
+
         res.render("pages/character-details", {
-            character
+            character,
+            originId,
+            locationId
         });
 
     } catch (error) {
 
-        res.status(404).render("pages/character-not-found");
+        res.status(404).render(
+            "pages/character-not-found"
+        );
 
     }
 

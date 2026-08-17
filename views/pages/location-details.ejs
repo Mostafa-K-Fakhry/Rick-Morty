@@ -1,0 +1,253 @@
+<%- include("../partials/head", { title: `${location.name} | Rick & Morty` }) %>
+
+
+    <%- include("../partials/navbar", { activePage: "locations" }) %>
+
+
+        <main class="location-details-page">
+
+            <div class="location-details-container">
+
+
+                <!-- Back -->
+
+                <a href="/locations" class="back-button">
+                    <span>←</span>
+                    Back to Locations
+                </a>
+
+
+                <!-- Main Card -->
+
+                <section class="location-details-card">
+
+
+                    <!-- Visual -->
+
+                    <div class="location-details-visual">
+
+                        <div class="big-location-portal">
+
+                            <div class="big-ring ring-one"></div>
+
+                            <div class="big-ring ring-two"></div>
+
+                            <div class="big-ring ring-three"></div>
+
+                            <div class="big-portal-core">
+                                ✦
+                            </div>
+
+                        </div>
+
+
+                        <div class="dimension-text">
+                            DIMENSIONAL LOCATION
+                        </div>
+
+                    </div>
+
+
+                    <!-- Content -->
+
+                    <div class="location-details-content">
+
+                        <span class="details-label">
+                            LOCATION PROFILE
+                        </span>
+
+
+                        <div class="location-details-heading">
+
+                            <h1>
+                                <%= location.name %>
+                            </h1>
+
+                            <span class="location-details-id">
+                                #<%= location.id %>
+                            </span>
+
+                        </div>
+
+
+                        <p class="location-details-description">
+                            Explore this location from the Rick & Morty
+                            multiverse and discover its type, dimension,
+                            and known residents.
+                        </p>
+
+
+                        <!-- Information -->
+
+                        <div class="location-info-grid">
+
+
+                            <div class="location-info-box">
+
+                                <span class="location-info-icon">
+                                    🌍
+                                </span>
+
+                                <div>
+
+                                    <span class="location-info-label">
+                                        Type
+                                    </span>
+
+                                    <span class="location-info-value">
+                                        <%= location.type || "Unknown" %>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="location-info-box">
+
+                                <span class="location-info-icon">
+                                    🌀
+                                </span>
+
+                                <div>
+
+                                    <span class="location-info-label">
+                                        Dimension
+                                    </span>
+
+                                    <span class="location-info-value">
+                                        <%= location.dimension || "Unknown" %>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="location-info-box">
+
+                                <span class="location-info-icon">
+                                    👽
+                                </span>
+
+                                <div>
+
+                                    <span class="location-info-label">
+                                        Residents
+                                    </span>
+
+                                    <span class="location-info-value">
+                                        <%= location.residents.length %>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="location-info-box">
+
+                                <span class="location-info-icon">
+                                    🆔
+                                </span>
+
+                                <div>
+
+                                    <span class="location-info-label">
+                                        Location ID
+                                    </span>
+
+                                    <span class="location-info-value">
+                                        #<%= location.id %>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Residents -->
+
+                        <div class="residents-section">
+
+                            <div class="residents-heading">
+
+                                <h2>
+                                    Residents
+                                </h2>
+
+                                <span>
+                                    <%= location.residents.length %>
+                                        residents
+                                </span>
+
+                            </div>
+
+
+                            <div class="residents-grid">
+
+                                <% if (residents.length> 0) { %>
+
+                                    <% residents.slice(0, 6).forEach(resident=> { %>
+
+                                        <a href="/characters/<%= resident.id %>" class="resident-card">
+
+                                            <img src="<%= resident.image %>" alt="<%= resident.name %>">
+
+
+                                            <div class="resident-info">
+
+                                                <h3>
+                                                    <%= resident.name %>
+                                                </h3>
+
+
+                                                <div class="resident-status">
+
+                                                    <span
+                                                        class="status-dot <%= resident.status.toLowerCase() %>"></span>
+
+                                                    <%= resident.status %>
+
+                                                </div>
+
+                                            </div>
+
+                                        </a>
+
+                                        <% }) %>
+
+                                            <% } else { %>
+
+                                                <div class="no-residents">
+                                                    No known residents
+                                                </div>
+
+                                                <% } %>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+
+        <div class="portal-decoration portal-one"></div>
+
+        <div class="portal-decoration portal-two"></div>
+
+        <div class="space-rock rock-one"></div>
+
+        <div class="space-rock rock-two"></div>
+
+
+        <%- include("../partials/footer") %>

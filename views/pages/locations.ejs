@@ -1,0 +1,405 @@
+<%- include("../partials/head", {
+    title: "Rick & Morty | Locations"
+}) %>
+
+
+<%- include("../partials/navbar", {
+    activePage: "locations"
+}) %>
+
+
+<main class="main-content">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero-section">
+
+        <h1>
+            Rick & Morty
+            <span>Locations</span>
+        </h1>
+
+        <div class="title-decoration">
+
+            <span></span>
+
+            <div class="portal">
+                ✦
+            </div>
+
+            <span></span>
+
+        </div>
+
+        <p>
+            Explore the strange worlds and dimensions of the universe.
+        </p>
+
+    </section>
+
+
+    <!-- ================= FILTERS ================= -->
+
+    <section class="filters-section">
+
+        <form
+            action="/locations"
+            method="GET"
+            class="filters-form"
+        >
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    name="name"
+                    value="<%= filters?.name || '' %>"
+                    placeholder="Search location..."
+                >
+
+            </div>
+
+
+            <select name="type">
+
+                <option value="">
+                    All Types
+                </option>
+
+                <option
+                    value="Planet"
+                    <%= filters?.type === "Planet" ? "selected" : "" %>
+                >
+                    Planet
+                </option>
+
+                <option
+                    value="Space station"
+                    <%= filters?.type === "Space station" ? "selected" : "" %>
+                >
+                    Space Station
+                </option>
+
+                <option
+                    value="Microverse"
+                    <%= filters?.type === "Microverse" ? "selected" : "" %>
+                >
+                    Microverse
+                </option>
+
+                <option
+                    value="TV"
+                    <%= filters?.type === "TV" ? "selected" : "" %>
+                >
+                    TV
+                </option>
+
+                <option
+                    value="Dimension"
+                    <%= filters?.type === "Dimension" ? "selected" : "" %>
+                >
+                    Dimension
+                </option>
+
+            </select>
+
+
+            <select name="dimension">
+
+                <option value="">
+                    All Dimensions
+                </option>
+
+                <option
+                    value="Dimension C-137"
+                    <%= filters?.dimension === "Dimension C-137" ? "selected" : "" %>
+                >
+                    Dimension C-137
+                </option>
+
+                <option
+                    value="unknown"
+                    <%= filters?.dimension === "unknown" ? "selected" : "" %>
+                >
+                    Unknown
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="filter-button"
+            >
+                Search
+            </button>
+
+
+            <a
+                href="/locations"
+                class="clear-button"
+            >
+                Clear
+            </a>
+
+        </form>
+
+    </section>
+
+
+    <!-- ================= NO RESULTS ================= -->
+
+    <% if (error) { %>
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                🌌
+            </div>
+
+            <h2>
+                No Locations Found
+            </h2>
+
+            <p>
+                Try another name or change your filters.
+            </p>
+
+            <a
+                href="/locations"
+                class="clear-button"
+            >
+                Clear Filters
+            </a>
+
+        </div>
+
+    <% } %>
+
+
+    <!-- ================= LOCATIONS ================= -->
+
+    <% if (locations.length > 0) { %>
+
+        <section class="locations-container">
+
+            <div class="locations-grid">
+
+                <% locations.forEach(location => { %>
+
+                    <a
+                        href="/locations/<%= location.id %>"
+                        class="location-card"
+                    >
+
+                        <!-- Portal -->
+
+                        <div class="location-visual">
+
+                            <div class="location-portal">
+
+                                <div class="portal-ring ring-one"></div>
+
+                                <div class="portal-ring ring-two"></div>
+
+                                <div class="portal-core">
+                                    ✦
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Location Info -->
+
+                        <div class="location-info">
+
+                            <div class="location-header">
+
+                                <h2>
+                                    <%= location.name %>
+                                </h2>
+
+                                <span class="location-id">
+                                    #<%= location.id %>
+                                </span>
+
+                            </div>
+
+
+                            <div class="location-details">
+
+                                <div class="location-detail">
+
+                                    <span class="location-icon">
+                                        🌍
+                                    </span>
+
+                                    <div>
+
+                                        <span class="location-label">
+                                            Type
+                                        </span>
+
+                                        <span class="location-value">
+                                            <%= location.type || "Unknown" %>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="location-detail">
+
+                                    <span class="location-icon">
+                                        🌀
+                                    </span>
+
+                                    <div>
+
+                                        <span class="location-label">
+                                            Dimension
+                                        </span>
+
+                                        <span class="location-value">
+                                            <%= location.dimension || "Unknown" %>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="location-detail">
+
+                                    <span class="location-icon">
+                                        👽
+                                    </span>
+
+                                    <div>
+
+                                        <span class="location-label">
+                                            Residents
+                                        </span>
+
+                                        <span class="location-value">
+                                            <%= location.residents.length %>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                <% }) %>
+
+            </div>
+
+
+            <!-- ================= PAGINATION ================= -->
+
+            <% if (info) { %>
+
+                <div class="pagination-container">
+
+                    <% if (info.prev) { %>
+
+                        <a
+                            href="/locations?<%= new URL(info.prev).searchParams.toString() %>"
+                            class="pagination-button"
+                        >
+                            ← Previous
+                        </a>
+
+                    <% } %>
+
+
+                    <div class="pagination-pages">
+
+                        <%
+                            const currentPage = Number(filters.page) || 1;
+
+                            const totalPages = info.pages;
+
+                            const startPage = Math.max(
+                                1,
+                                currentPage - 2
+                            );
+
+                            const endPage = Math.min(
+                                totalPages,
+                                currentPage + 2
+                            );
+                        %>
+
+
+                        <% for (
+                            let page = startPage;
+                            page <= endPage;
+                            page++
+                        ) { %>
+
+                            <%
+                                const pageParams =
+                                    new URLSearchParams(filters);
+
+                                pageParams.set(
+                                    "page",
+                                    page
+                                );
+                            %>
+
+
+                            <a
+                                href="/locations?<%= pageParams.toString() %>"
+                                class="pagination-page <%= page === currentPage ? 'active' : '' %>"
+                            >
+                                <%= page %>
+                            </a>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <% if (info.next) { %>
+
+                        <a
+                            href="/locations?<%= new URL(info.next).searchParams.toString() %>"
+                            class="pagination-button"
+                        >
+                            Next →
+                        </a>
+
+                    <% } %>
+
+                </div>
+
+            <% } %>
+
+        </section>
+
+    <% } %>
+
+</main>
+
+
+<!-- ================= DECORATIONS ================= -->
+
+<div class="portal-decoration portal-one"></div>
+
+<div class="portal-decoration portal-two"></div>
+
+<div class="space-rock rock-one"></div>
+
+<div class="space-rock rock-two"></div>
+
+
+<%- include("../partials/footer") %>
