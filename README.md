@@ -440,10 +440,9 @@ Possible future improvements include:
 
 ## 👨‍💻 Author
 
-** Mostafa Khaled **
+[**Mostafa Khaled**](https://github.com/Mostafa-K-Fakhry)
 
-Built as a full-stack practice project using Node.js, Express.js, EJS,
-Axios, and the Rick and Morty API.
+Built as a full-stack practice project using **Node.js, Express.js, EJS, Axios, and the Rick and Morty API**.
 
 ------------------------------------------------------------------------
 
