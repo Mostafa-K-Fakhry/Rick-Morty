@@ -1,0 +1,284 @@
+<%- include("../partials/head", {
+    title: `${character.name} | Rick & Morty`
+}) %>
+
+
+<%- include("../partials/navbar", {
+    activePage: "characters"
+}) %>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="details-page">
+
+        <div class="details-container">
+
+
+            <!-- Back Button -->
+
+            <a
+                href="/characters"
+                class="back-button"
+            >
+                <span>←</span>
+                Back to Characters
+            </a>
+
+
+            <!-- Character Details -->
+
+            <section class="character-details-card">
+
+
+                <!-- Character Image -->
+
+                <div class="details-image-wrapper">
+
+                    <div class="details-image-glow"></div>
+
+                    <img
+                        src="<%= character.image %>"
+                        alt="<%= character.name %>"
+                        class="details-image"
+                    >
+
+                </div>
+
+
+                <!-- Character Information -->
+
+                <div class="details-content">
+
+
+                    <div class="details-heading">
+
+                        <div>
+
+                            <span class="details-label">
+                                CHARACTER PROFILE
+                            </span>
+
+                            <h1>
+                                <%= character.name %>
+                            </h1>
+
+                        </div>
+
+
+                        <div class="details-status">
+
+                            <span
+                                class="status-dot <%= character.status.toLowerCase() %>"
+                            ></span>
+
+                            <%= character.status %>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="details-description">
+                        Welcome to the Rick & Morty universe.
+                        Explore the details of this character
+                        and discover where they come from.
+                    </p>
+
+
+                    <!-- Information Grid -->
+
+                    <div class="details-info-grid">
+
+
+                        <div class="info-box">
+
+                            <span class="info-icon">
+                                🧬
+                            </span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Species
+                                </span>
+
+                                <span class="info-value">
+                                    <%= character.species %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-icon">
+                                ⚥
+                            </span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Gender
+                                </span>
+
+                                <span class="info-value">
+                                    <%= character.gender %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-icon">
+                                🌍
+                            </span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Origin
+                                </span>
+
+                                <span class="info-value">
+                                    <%= character.origin.name %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-icon">
+                                📍
+                            </span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Last Location
+                                </span>
+
+                                <span class="info-value">
+                                    <%= character.location.name %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-icon">
+                                🎬
+                            </span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Episodes
+                                </span>
+
+                                <span class="info-value">
+                                    <%= character.episode.length %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-icon">
+                                🆔
+                            </span>
+
+                            <div>
+
+                                <span class="info-label">
+                                    Character ID
+                                </span>
+
+                                <span class="info-value">
+                                    #<%= character.id %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Episodes -->
+
+                    <div class="episodes-section">
+
+                        <div class="section-heading">
+
+                            <h2>
+                                Episodes
+                            </h2>
+
+                            <span>
+                                <%= character.episode.length %> appearances
+                            </span>
+
+                        </div>
+
+
+                        <div class="episode-list">
+
+                            <% character.episode.slice(0, 6).forEach((episodeUrl, index) => { %>
+
+                                <div class="episode-item">
+
+                                    <span class="episode-number">
+                                        <%= String(index + 1).padStart(2, "0") %>
+                                    </span>
+
+                                    <span>
+                                        Episode Appearance
+                                    </span>
+
+                                </div>
+
+                            <% }) %>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- Decorative Elements -->
+
+    <div class="portal-decoration portal-one"></div>
+
+    <div class="portal-decoration portal-two"></div>
+
+    <div class="space-rock rock-one"></div>
+
+    <div class="space-rock rock-two"></div>
+
+
+<%- include("../partials/footer") %>

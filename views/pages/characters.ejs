@@ -1,0 +1,337 @@
+<%- include("../partials/head", {
+    title: "Rick & Morty | Characters"
+}) %>
+
+
+<%- include("../partials/navbar", {
+    activePage: "characters"
+}) %>
+
+
+<main class="main-content">
+
+    <section class="hero-section">
+
+        <h1>
+            Rick & Morty
+            <span>Characters</span>
+        </h1>
+
+        <div class="title-decoration">
+
+            <span></span>
+
+            <div class="portal">
+                ✦
+            </div>
+
+            <span></span>
+
+        </div>
+
+        <p>
+            Explore the insane world and its unforgettable characters.
+        </p>
+
+    </section>
+    <section class="filters-section">
+
+    <form
+        action="/characters"
+        method="GET"
+        class="filters-form"
+    >
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                name="name"
+                value="<%= filters?.name || '' %>"
+                placeholder="Search character..."
+            >
+
+        </div>
+
+
+        <select name="status">
+
+            <option value="">
+                All Status
+            </option>
+
+            <option
+                value="alive"
+                <%= filters?.status === "alive" ? "selected" : "" %>
+            >
+                Alive
+            </option>
+
+            <option
+                value="dead"
+                <%= filters?.status === "dead" ? "selected" : "" %>
+            >
+                Dead
+            </option>
+
+            <option
+                value="unknown"
+                <%= filters?.status === "unknown" ? "selected" : "" %>
+                >
+                Unknown
+            </option>
+
+        </select>
+
+
+        <select name="species">
+
+            <option value="">
+                All Species
+            </option>
+
+            <option
+                value="human"
+                <%= filters?.species === "human" ? "selected" : "" %>
+            >
+                Human
+            </option>
+
+            <option
+                value="alien"
+                <%= filters?.species === "alien" ? "selected" : "" %>
+            >
+                Alien
+            </option>
+
+        </select>
+
+
+        <select name="gender">
+
+            <option value="">
+                All Gender
+            </option>
+
+            <option
+                value="male"
+                <%= filters?.gender === "male" ? "selected" : "" %>
+            >
+                Male
+            </option>
+
+            <option
+                value="female"
+                <%= filters?.gender === "female" ? "selected" : "" %>
+                >
+                Female
+            </option>
+
+            <option
+                value="genderless"
+                <%= filters?.gender === "genderless" ? "selected" : "" %>
+                >
+                Genderless
+            </option>
+
+            <option
+                value="unknown"
+                <%= filters?.gender === "unknown" ? "selected" : "" %>
+                >
+                Unknown
+            </option>
+
+        </select>
+
+
+        <button type="submit" class="filter-button">
+            Search
+        </button>
+
+
+        <a
+            href="/characters"
+            class="clear-button"
+        >
+            Clear
+        </a>
+
+    </form>
+
+</section>
+
+
+    <section class="characters-container">
+
+        <div class="characters-grid">
+
+            <% characters.forEach(character => { %>
+
+                <a
+                    href="/characters/<%= character.id %>"
+                    class="character-card"
+                >
+
+                    <div class="character-image">
+
+                        <img
+                            src="<%= character.image %>"
+                            alt="<%= character.name %>"
+                        >
+
+                    </div>
+
+
+                    <div class="character-info">
+
+                        <div class="character-header">
+
+                            <h2>
+                                <%= character.name %>
+                            </h2>
+
+                            <span class="status">
+
+                                <span
+                                    class="status-dot <%= character.status.toLowerCase() %>"
+                                ></span>
+
+                                <%= character.status %>
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="character-details">
+
+                            <div class="detail">
+
+                                <span class="detail-icon">
+                                    🧬
+                                </span>
+
+                                <span>
+                                    <strong>Species:</strong>
+                                    <%= character.species %>
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail">
+
+                                <span class="detail-icon">
+                                    ⚥
+                                </span>
+
+                                <span>
+                                    <strong>Gender:</strong>
+                                    <%= character.gender %>
+                                </span>
+
+                            </div>
+
+
+                            <div class="detail">
+
+                                <span class="detail-icon">
+                                    ◉
+                                </span>
+
+                                <span>
+                                    <strong>Origin:</strong>
+                                    <%= character.origin.name %>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            <% }) %>
+
+        </div>
+
+
+       <% if (info) { %>
+
+    <div class="pagination-container">
+
+        <% if (info.prev) { %>
+
+            <a
+                href="/characters?<%= new URL(info.prev).searchParams.toString() %>"
+                class="pagination-button"
+            >
+                ← Previous
+            </a>
+
+        <% } %>
+
+
+        <div class="pagination-pages">
+
+            <% 
+
+                const currentPage = Number(filters.page) || 1;
+
+                const totalPages = info.pages;
+
+                let startPage = Math.max(1, currentPage - 2);
+
+                let endPage = Math.min(
+                    totalPages,
+                    currentPage + 2
+                );
+
+            %>
+
+
+            <% for (let page = startPage; page <= endPage; page++) { %>
+
+                <% 
+
+                    const pageParams = new URLSearchParams(filters);
+
+                    pageParams.set("page", page);
+
+                %>
+
+
+                <a
+                    href="/characters?<%= pageParams.toString() %>"
+                    class="pagination-page <%= page === currentPage ? 'active' : '' %>"
+                >
+                    <%= page %>
+                </a>
+
+            <% } %>
+
+        </div>
+
+
+        <% if (info.next) { %>
+
+            <a
+                href="/characters?<%= new URL(info.next).searchParams.toString() %>"
+                class="pagination-button"
+            >
+                Next →
+            </a>
+
+        <% } %>
+
+    </div>
+
+<% } %>
+
+    </section>
+
+</main>
+
+
+<%- include("../partials/footer") %>
