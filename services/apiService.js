@@ -48,11 +48,21 @@ const getLocationById = async (id) => {
 
 const getCharactersByUrls = async (urls) => {
 
-    const requests = urls.map((url) => axios.get(url));
+    if (!urls || urls.length === 0) {
+        return [];
+    }
 
-    const responses = await Promise.all(requests);
+    const ids = urls.map((url) =>
+        url.split("/").pop()
+    );
 
-    return responses.map((response) => response.data);
+    const response = await axios.get(
+        `${API_URL}/character/${ids.join(",")}`
+    );
+
+    return Array.isArray(response.data)
+        ? response.data
+        : [response.data];
 };
 
 export {

@@ -1,0 +1,49 @@
+<%- include("../partials/head", {
+    title: "Location Not Found"
+}) %>
+
+<%- include("../partials/navbar", {
+    activePage: "locations"
+}) %>
+
+
+<main class="not-found-page">
+
+    <div class="not-found-card">
+
+        <div class="not-found-icon">
+            🌌
+        </div>
+
+        <span class="not-found-label">
+            LOCATION NOT FOUND
+        </span>
+
+        <h1>
+            Wrong Dimension!
+        </h1>
+
+        <p>
+            This location doesn't exist in the
+            Rick & Morty multiverse.
+        </p>
+
+        <a
+            href="/locations"
+            class="back-button not-found-button"
+        >
+            <span>←</span>
+            Back to Locations
+        </a>
+
+    </div>
+
+</main>
+
+
+<div class="portal-decoration portal-one"></div>
+
+<div class="portal-decoration portal-two"></div>
+
+
+<%- include("../partials/footer") %>
